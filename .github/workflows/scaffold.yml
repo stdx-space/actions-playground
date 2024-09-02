@@ -1,0 +1,36 @@
+name: Deploy Scaffolding Resources
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      intent:
+        type: choice
+        description: "Intent of running Terraform workflow"
+        default: plan
+        options:
+          - plan
+          - apply
+          - destroy
+      environment:
+        type: choice
+        description: "Environment to deploy resource"
+        default: development
+        options:
+          - development
+          - production
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    name: Create Deployment Matrix
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: console.log(context)
