@@ -48,6 +48,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Run Matrix Build
     strategy:
-      matrix: ${{ needs.matrix.outputs.matrix }}
+      matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
     steps:
       - run: echo ${{ matrix.environment }} ${{ matrix.intent }}
