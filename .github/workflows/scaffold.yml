@@ -30,6 +30,8 @@ jobs:
   matrix:
     runs-on: ubuntu-latest
     name: Create Deployment Matrix
+    outputs:
+      matrix: ${{ steps.get-matrix.outputs.result }}
     steps:
       - uses: actions/github-script@v7
         id: get-matrix
@@ -41,4 +43,11 @@ jobs:
             }
             console.log(matrix)
             return matrix
-      - run: echo ${{steps.get-matrix.outputs.result}}
+  build:
+    needs: matrix
+    runs-on: ubuntu-latest
+    name: Run Matrix Build
+    strategy:
+      matrix: ${{ needs.matrix.outputs.matrix }}
+    steps:
+      - run: echo ${{ matrix.environment }} ${{ matrix.intent }}
