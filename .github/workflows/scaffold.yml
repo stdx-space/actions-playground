@@ -36,7 +36,7 @@ jobs:
         with:
           script: |
             const matrix = {
-              "environment": context.payload?.inputs?.environment ? [context.payload.inputs.environment] : ["development", "production"]
+              "environment": context.payload?.inputs?.environment ? [context.payload.inputs.environment] : ["development", "production"],
               "intent": context.payload?.inputs?.intent ?? "plan"
             }
             console.log(matrix)
